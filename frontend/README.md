@@ -1,3 +1,7 @@
+# SOLUTION TO ENOTFOUND
+# npm config set proxy http://domain:8080
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

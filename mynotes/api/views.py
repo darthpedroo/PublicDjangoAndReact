@@ -8,6 +8,8 @@ from .serializers import NoteSerializer
 @api_view(["GET"]) # The methods that will be performed in this view
 def getRoutes(request):
 
+
+    # REVISAR LA SALIDA DE DJANGO CUANDO TENGA PROBLEMAS CON LAS URL
     routes = [
         {
             'Endpoint': '/notes/',
@@ -34,7 +36,7 @@ def getRoutes(request):
             'description': 'Creates an existing note with data sent in post request'
         },
         {
-            'Endpoint': '/notes/id/delete/',
+            'Endpoint': '/notes/<str:pk>/delete/',
             'method': 'DELETE',
             'body': None,
             'description': 'Deletes and exiting note'
@@ -68,3 +70,9 @@ def updateNote(request,pk):
         serializer.save()
 
     return Response(serializer.data)
+
+@api_view(['DELETE'])
+def deleteNote(request,pk):
+    note = Note.objects.get(id = pk)
+    note.delete()
+    return Response("Note was deleted!")

@@ -8,6 +8,8 @@ from .serializers import NoteSerializer
 @api_view(["GET"]) # The methods that will be performed in this view
 def getRoutes(request):
 
+
+    # REVISAR LA SALIDA DE DJANGO CUANDO TENGA PROBLEMAS CON LAS URL
     routes = [
         {
             'Endpoint': '/notes/',

@@ -2,6 +2,8 @@ import React,{useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import {ReactComponent as ArrowLeft} from '../assets/arrow-left.svg'
 import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie';
+const csrftoken = Cookies.get('csrftoken');
 
 const NotePage = () => {
     const {id} = useParams();
@@ -21,10 +23,11 @@ const NotePage = () => {
 
     }
     let deleteNote = async () =>{
-        fetch(`/api/notes/${id}/delete`,{ // <-- update the URL here
+        fetch(`/api/notes/${id}/`,{ // <-- update the URL here
             method: 'DELETE',
             'headers': {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
             }
         })
         navigate('/')
@@ -32,10 +35,11 @@ const NotePage = () => {
     
     let createNote = async () => {
         try {
-            const response = await fetch(`/api/notes/create`, {
+            const response = await fetch(`/api/notes/`, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
                 },
                 body:JSON.stringify(note)
             });
@@ -50,10 +54,11 @@ const NotePage = () => {
     let updateNote = async () => {
         try {
             
-            const response = await fetch(`/api/notes/${id}/update`, {
+            const response = await fetch(`/api/notes/${id}/`, {
                 method: "PUT",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
                 },
                 body:JSON.stringify(note)
             });
